@@ -197,6 +197,18 @@
     .filter-chip { border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 8px; padding: 7px 10px; font-size: 11px; cursor: pointer; }
     .filter-chip.active { color: var(--text); border-color: #465054; background: var(--panel-2); }
 
+    .account-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+    .account-tab { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 9px; padding: 9px 12px; font: inherit; font-size: 12px; cursor: pointer; }
+    .account-tab:hover { color: var(--text); border-color: #3b4448; }
+    .account-tab.active { color: var(--text); border-color: rgba(215,255,69,.34); background: var(--accent-soft); }
+    .account-tab-count { min-width: 20px; padding: 2px 6px; border-radius: 999px; background: rgba(255,255,255,.06); color: #c4cbce; font-size: 10px; text-align: center; }
+    .account-market-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .account-market-tabs { display: inline-grid; grid-template-columns: repeat(2,minmax(130px,1fr)); gap: 5px; padding: 5px; border: 1px solid var(--line); border-radius: 12px; background: #0b0e0f; }
+    .account-market-tab { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 38px; padding: 8px 16px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: inherit; font-size: 12px; font-weight: 650; cursor: pointer; }
+    .account-market-tab:hover { color: var(--text); }
+    .account-market-tab.active { color: #101307; background: var(--accent); }
+    .account-market-tab.active .account-tab-count { color: #101307; background: rgba(0,0,0,.12); }
+    .account-create-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
     .accounts-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-bottom: 18px; }
     .backup-card { padding: 18px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
     .backup-card h3 { margin: 0 0 5px; font-size: 16px; }
@@ -210,6 +222,7 @@
     .account-badge { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; color: #aab2b5; font-size: 10px; }
     .account-badge.type { color: var(--accent); border-color: rgba(215,255,69,.24); background: var(--accent-soft); }
     .account-badge.funded { color: var(--green); border-color: rgba(88,214,141,.3); background: rgba(88,214,141,.08); }
+    .account-badge.burned-status { color: var(--red); border-color: rgba(255,107,107,.3); background: rgba(255,107,107,.08); }
     .account-balance { font-size: 26px; font-weight: 620; letter-spacing: -.04em; margin: 26px 0 5px; }
     .account-stats { display: flex; justify-content: space-between; align-items: end; color: var(--muted); font-size: 11px; }
     .account-stats strong { display: block; color: var(--green); font-size: 15px; margin-bottom: 2px; }
@@ -221,6 +234,12 @@
     .account-delete, .account-edit { border: 1px solid var(--line); background: rgba(11,13,14,.7); color: var(--muted); width: 30px; height: 30px; border-radius: 8px; cursor: pointer; display: grid; place-items: center; flex: 0 0 auto; }
     .account-edit:hover { color: var(--accent); border-color: rgba(215,255,69,.4); background: var(--accent-soft); }
     .account-delete:hover { color: var(--red); border-color: rgba(255,107,107,.45); background: rgba(255,107,107,.08); }
+    .account-card.burned { opacity: .78; }
+    .account-stage-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 17px; padding-top: 14px; border-top: 1px solid var(--line-soft); position: relative; z-index: 1; }
+    .account-stage-action { border: 1px solid var(--line); background: #111516; color: #aeb6b9; border-radius: 8px; padding: 7px 9px; font: inherit; font-size: 10px; cursor: pointer; }
+    .account-stage-action:hover { color: var(--text); border-color: #475156; }
+    .account-stage-action.promote { color: var(--accent); border-color: rgba(215,255,69,.28); background: var(--accent-soft); }
+    .account-stage-action.burn { color: var(--red); border-color: rgba(255,107,107,.28); background: rgba(255,107,107,.06); }
     .confirm-copy { padding: 20px 22px 0; color: #a9b0b3; font-size: 13px; line-height: 1.6; }
     .confirm-copy strong { color: var(--text); }
     .account-picker-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
@@ -345,6 +364,15 @@
 
     dialog { padding: 0; border: 1px solid #343d41; border-radius: 16px; background: var(--panel); color: var(--text); width: min(560px, calc(100% - 28px)); max-height: calc(100vh - 28px); overflow: auto; box-shadow: 0 30px 90px rgba(0,0,0,.6); }
     #tradeDialog { width: min(920px, calc(100% - 28px)); }
+    #accountDetailDialog { width: min(1120px, calc(100% - 28px)); }
+    .account-detail-body { display: grid; gap: 14px; padding: 18px 20px 22px; }
+    .account-detail-meta { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .account-detail-kpis { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 9px; }
+    .account-detail-kpi { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 11px; background: #101315; }
+    .account-detail-kpi span { display: block; color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; }
+    .account-detail-kpi strong { display: block; margin-top: 7px; font-size: clamp(17px,2vw,23px); letter-spacing: -.035em; overflow-wrap: anywhere; }
+    .account-detail-calendar { overflow: hidden; }
+    .account-detail-assets { padding: 18px; }
     dialog::backdrop { background: rgba(3,5,6,.72); backdrop-filter: blur(6px); }
     .dialog-head { padding: 20px 22px 16px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
     .dialog-head h2 { margin: 0; font-size: 18px; }
@@ -385,6 +413,7 @@
       .track-grid { grid-template-columns: 1fr; }
       .performance-grid { grid-template-columns: 1fr; }
       .summary-accounts .accounts-mini { grid-template-columns: 1fr 1fr; }
+      .account-detail-kpis { grid-template-columns: repeat(3,minmax(0,1fr)); }
     }
 
     @media (max-width: 720px) {
@@ -409,6 +438,11 @@
       .form-grid { grid-template-columns: 1fr; }
       .account-picker { grid-template-columns: 1fr; }
       .field.full { grid-column: auto; }
+      .account-detail-kpis { grid-template-columns: 1fr 1fr; }
+      .account-market-bar { align-items: stretch; flex-direction: column; }
+      .account-market-tabs { width: 100%; }
+      .account-create-actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .account-create-actions .btn { width: 100%; padding-inline: 8px; }
       .mobile-nav { display: grid; grid-template-columns: repeat(4,1fr); position: fixed; z-index: 30; left: 10px; right: 10px; bottom: 10px; padding: 7px; border: 1px solid var(--line); border-radius: 14px; background: rgba(17,20,22,.95); backdrop-filter: blur(14px); }
       .mobile-nav button { border: 0; background: transparent; color: var(--muted); padding: 9px 4px; border-radius: 8px; font-size: 10px; }
       .mobile-nav button.active { color: #101212; background: var(--accent); font-weight: 700; }
@@ -429,7 +463,7 @@
         <div class="brand-copy"><strong>BRAIN</strong><span>Trading control</span></div>
       </div>
       <nav class="nav">
-        <button class="active" data-view="resumen">Resumen</button>
+        <button class="active" data-view="resumen">Dashboard</button>
         <button data-view="cuentas">Cuentas</button>
         <button data-view="journal">Diario de bitácora</button>
         <button data-view="trackrecord">Track record</button>
@@ -439,7 +473,7 @@
 
     <main>
       <header class="topbar">
-        <div><div class="eyebrow" id="viewEyebrow">Vista general</div><h1 id="viewTitle">Tu operativa, sin ruido.</h1></div>
+        <div><div class="eyebrow" id="viewEyebrow">Vista general</div><h1 id="viewTitle">Dashboard</h1></div>
         <div class="top-actions">
           <div class="date-chip" id="today"></div>
           <button class="btn ghost" id="logQuick" hidden>+ Recap semanal</button>
@@ -449,14 +483,14 @@
 
       <section class="view active" id="resumen">
         <div class="kpis">
-          <article class="card kpi"><div class="kpi-head"><span>Capital total</span></div><div class="kpi-value" id="totalBalance">—</div><div class="section-sub">Saldo consolidado</div></article>
-          <article class="card kpi"><div class="kpi-head"><span>P&amp;L neto</span></div><div class="kpi-value" id="netPnl">—</div><div class="section-sub">Operaciones cerradas</div></article>
-          <article class="card kpi"><div class="kpi-head"><span>Funding ratio</span></div><div class="kpi-value" id="fundingRatio">—</div><div class="section-sub">Fondeadas ÷ evaluaciones compradas</div></article>
-          <article class="card kpi"><div class="kpi-head"><span>Win rate</span></div><div class="kpi-value" id="winRate">—</div><div class="section-sub">Consistencia del sistema</div></article>
+          <article class="card kpi"><div class="kpi-head"><span>Cuentas activas</span></div><div class="kpi-value" id="activeAccountCount">—</div><div class="section-sub">CFDs y futuros, sin cuentas quemadas</div></article>
+          <article class="card kpi"><div class="kpi-head"><span>Funded activas</span></div><div class="kpi-value" id="activeFundedCount">—</div><div class="section-sub">Cuentas fondeadas en activo</div></article>
+          <article class="card kpi"><div class="kpi-head"><span>Evaluaciones</span></div><div class="kpi-value" id="evaluationCount">—</div><div class="section-sub">Compras iniciales + reinicios</div></article>
+          <article class="card kpi"><div class="kpi-head"><span>Funding ratio</span></div><div class="kpi-value" id="fundingRatio">—</div><div class="section-sub">Fondeadas ÷ evaluaciones totales</div></article>
           <article class="card kpi"><div class="kpi-head"><span>Gasto en evaluaciones</span></div><div class="kpi-value" id="evaluationSpend">—</div><div class="section-sub">Compras + reinicios + activaciones</div></article>
           <article class="card kpi"><div class="kpi-head"><span>Retiros totales</span></div><div class="kpi-value" id="totalWithdrawals">—</div><div class="section-sub">Ganancias recibidas de las cuentas</div></article>
           <article class="card kpi"><div class="kpi-head"><span>ROI global</span></div><div class="kpi-value" id="globalRoi">—</div><div class="section-sub">Beneficio o gasto neto realizado</div></article>
-          <article class="card kpi"><div class="kpi-head"><span>Evaluaciones</span></div><div class="kpi-value" id="evaluationCount">—</div><div class="section-sub">Compradas, incluidas las ya fondeadas</div></article>
+          <article class="card kpi"><div class="kpi-head"><span>Win rate</span></div><div class="kpi-value" id="winRate">—</div><div class="section-sub">Consistencia del sistema</div></article>
         </div>
 
         <div class="dashboard-grid summary-calendar-only">
@@ -468,7 +502,20 @@
       </section>
 
       <section class="view" id="cuentas">
-        <div class="section-head"><div><h2 class="section-title">Cuentas de trading</h2><p class="section-sub">Balance, costes, retiradas y resultado neto del ciclo.</p></div><button class="btn primary" id="accountQuick">+ Cuenta</button></div>
+        <div class="section-head"><div><h2 class="section-title">Cuentas de trading</h2><p class="section-sub">Balance, costes, retiradas y resultado neto del ciclo.</p></div></div>
+        <div class="account-market-bar">
+          <div class="account-market-tabs" role="tablist" aria-label="Mercado de las cuentas">
+            <button class="account-market-tab active" type="button" role="tab" aria-selected="true" data-account-market-tab="Futuros">Futuros <span class="account-tab-count" id="futuresMarketCount">0</span></button>
+            <button class="account-market-tab" type="button" role="tab" aria-selected="false" data-account-market-tab="CFDs">CFDs <span class="account-tab-count" id="cfdMarketCount">0</span></button>
+          </div>
+          <div class="account-create-actions"><button class="btn ghost" id="accountCfdQuick" type="button">+ Cuenta CFDs</button><button class="btn primary" id="accountFuturesQuick" type="button">+ Cuenta Futuros</button></div>
+        </div>
+        <div class="account-tabs" role="tablist" aria-label="Estado de las cuentas">
+          <button class="account-tab active" type="button" role="tab" aria-selected="true" data-account-tab="challenge"><span id="challengeLabel">Challenge</span> <span class="account-tab-count" id="challengeCount">0</span></button>
+          <button class="account-tab" type="button" role="tab" aria-selected="false" data-account-tab="funded"><span id="fundedLabel">Funded</span> <span class="account-tab-count" id="fundedCount">0</span></button>
+          <button class="account-tab" type="button" role="tab" aria-selected="false" data-account-tab="live"><span id="liveLabel">Live</span> <span class="account-tab-count" id="liveCount">0</span></button>
+          <button class="account-tab" type="button" role="tab" aria-selected="false" data-account-tab="burned">Cuentas quemadas <span class="account-tab-count" id="burnedCount">0</span></button>
+        </div>
         <div class="accounts-grid" id="accountsGrid"></div>
         <article class="card backup-card">
           <div><h3>Copia de seguridad</h3><p>Descarga cuentas, sesiones, recaps y capturas para restaurarlos en este u otro dispositivo.</p></div>
@@ -546,8 +593,30 @@
   </div>
 
   <nav class="mobile-nav" aria-label="Navegación móvil">
-    <button class="active" data-view="resumen">Resumen</button><button data-view="cuentas">Cuentas</button><button data-view="journal">Diario</button><button data-view="trackrecord">Track</button>
+    <button class="active" data-view="resumen">Dashboard</button><button data-view="cuentas">Cuentas</button><button data-view="journal">Diario</button><button data-view="trackrecord">Track</button>
   </nav>
+
+  <dialog id="accountDetailDialog">
+    <div class="dialog-head"><div><h2 id="accountDetailTitle">Estadísticas de cuenta</h2><div class="account-detail-meta" id="accountDetailMeta">—</div></div><button class="icon-btn" data-close="accountDetailDialog" aria-label="Cerrar">×</button></div>
+    <div class="account-detail-body">
+      <div class="account-detail-kpis">
+        <article class="account-detail-kpi"><span>Resultado</span><strong id="accountDetailPnl">—</strong></article>
+        <article class="account-detail-kpi"><span>Rentabilidad</span><strong id="accountDetailReturn">—</strong></article>
+        <article class="account-detail-kpi"><span>Win rate</span><strong id="accountDetailWinRate">—</strong></article>
+        <article class="account-detail-kpi"><span>N.º de trades</span><strong id="accountDetailTrades">—</strong></article>
+        <article class="account-detail-kpi"><span>Take profits</span><strong id="accountDetailTp">—</strong></article>
+        <article class="account-detail-kpi"><span>Stop losses</span><strong id="accountDetailSl">—</strong></article>
+      </div>
+      <article class="card calendar-card account-detail-calendar">
+        <div class="calendar-toolbar"><div class="calendar-month-nav"><button class="calendar-arrow" id="accountCalendarPrev" type="button" aria-label="Mes anterior">‹</button><span class="calendar-month" id="accountCalendarMonth">—</span><button class="calendar-arrow" id="accountCalendarNext" type="button" aria-label="Mes siguiente">›</button></div><button class="today-btn" id="accountCalendarToday" type="button">Today</button></div>
+        <div class="calendar-scroll"><div class="calendar-inner"><div class="calendar-weekdays"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div><div class="result-calendar" id="accountResultCalendar"></div></div></div>
+      </article>
+      <article class="card account-detail-assets">
+        <div class="section-head"><div><h3 class="section-title">Pares operados</h3><p class="section-sub">Rentabilidad obtenida en cada activo para esta cuenta.</p></div></div>
+        <div class="asset-chart" id="accountAssetChart"></div>
+      </article>
+    </div>
+  </dialog>
 
   <dialog id="tradeDialog">
     <div class="dialog-head"><h2 id="tradeDialogTitle">Nueva sesión</h2><button class="icon-btn" data-close="tradeDialog" aria-label="Cerrar">×</button></div>
@@ -583,17 +652,17 @@
     <form id="accountForm">
       <div class="form-grid">
         <div class="field"><label for="accountName">Nombre</label><input id="accountName" name="name" placeholder="Topstep 50K #1" required /></div>
-        <div class="field"><label for="accountMarket">Mercado</label><select id="accountMarket" name="market"><option value="Futuros">Futuros</option><option value="CFDs">CFDs</option></select></div>
-        <div class="field"><label for="accountType">Tipo de cuenta</label><select id="accountType" name="type"><option value="Evaluación">Prop · Evaluación</option><option value="Fondeada simulada">Prop · Fondeada simulada</option><option value="Fondeada live">Prop · Fondeada live</option><option value="Personal">Cuenta personal</option></select></div>
-        <div class="field"><label>Estado para el funding ratio</label><label class="account-choice"><input id="accountFunded" name="funded" type="checkbox" /> <span>Marcar esta cuenta como fondeada</span></label></div>
+        <input id="accountMarket" name="market" type="hidden" value="Futuros" />
+        <div class="field" id="accountTypeField"><label for="accountType">Tipo de cuenta</label><select id="accountType" name="type"></select></div>
+        <div class="field" id="accountFundedField"><label>Estado para el funding ratio</label><label class="account-choice"><input id="accountFunded" name="funded" type="checkbox" /> <span>Marcar esta cuenta como fondeada</span></label></div>
         <div class="field"><label for="accountBroker">Prop firm</label><select id="accountBroker" name="broker"></select></div>
         <div class="field"><label for="accountSize">Tamaño nominal</label><select id="accountSize" name="initial"></select></div>
-        <div class="field full"><label for="accountBalance">Balance actual ($)</label><input id="accountBalance" name="balance" type="number" step=".01" required /><span class="section-sub">BRAIN utilizará este saldo como punto de partida y lo actualizará automáticamente con las ganancias y pérdidas de las sesiones vinculadas.</span></div>
-        <div class="field"><label for="accountEvalCost">Coste de evaluación pagado ($)</label><input id="accountEvalCost" name="evalCost" type="number" min="0" step=".01" value="0" /></div>
-        <div class="field"><label for="accountActivationCost">Activación y otros pagos ($)</label><input id="accountActivationCost" name="activationCost" type="number" min="0" step=".01" value="0" /></div>
-        <div class="field"><label for="accountResets">Número de reinicios</label><input id="accountResets" name="resets" type="number" min="0" step="1" value="0" /></div>
-        <div class="field"><label for="accountResetCost">Coste por reinicio ($)</label><input id="accountResetCost" name="resetCost" type="number" min="0" step=".01" value="0" /></div>
-        <div class="field full"><label for="accountWithdrawals">Retiradas acumuladas recibidas ($)</label><input id="accountWithdrawals" name="withdrawals" type="number" min="0" step=".01" value="0" /><span class="section-sub">ROI neto = retiradas − coste total pagado. Comienza en rojo con el importe invertido y pasa a verde cuando las retiradas superan todos los costes.</span></div>
+        <div class="field full"><label for="accountBalance">Balance actual ($)</label><input id="accountBalance" name="balance" type="number" step=".01" required /><span class="section-sub">BRAIN utilizará este saldo como punto de partida, sumará las ganancias o pérdidas y descontará las retiradas de las cuentas fondeadas.</span></div>
+        <div class="field" id="accountEvalCostField"><label for="accountEvalCost">Coste de evaluación pagado ($)</label><input id="accountEvalCost" name="evalCost" type="number" min="0" step=".01" value="0" /></div>
+        <div class="field" id="accountActivationField"><label for="accountActivationCost">Activación y otros pagos ($)</label><input id="accountActivationCost" name="activationCost" type="number" min="0" step=".01" value="0" /></div>
+        <div class="field" id="accountResetsField"><label for="accountResets">Número de reinicios</label><input id="accountResets" name="resets" type="number" min="0" step="1" value="0" /></div>
+        <div class="field" id="accountResetCostField"><label for="accountResetCost">Coste por reinicio ($)</label><input id="accountResetCost" name="resetCost" type="number" min="0" step=".01" value="0" /></div>
+        <div class="field full" id="accountWithdrawalsField"><label for="accountWithdrawals">Retiradas acumuladas recibidas ($)</label><input id="accountWithdrawals" name="withdrawals" type="number" min="0" step=".01" value="0" /><span class="section-sub">Cada retirada se descuenta del balance visible. ROI neto = retiradas − coste total pagado.</span></div>
       </div>
       <div class="dialog-actions"><button type="button" class="btn ghost" data-close="accountDialog">Cancelar</button><button class="btn primary" id="accountSubmit" type="submit">Guardar cuenta</button></div>
     </form>
@@ -666,8 +735,12 @@
     let tradeFilter = 'all';
     let trackPeriod = 'all';
     let trackAccount = 'all';
+    let accountTab = 'challenge';
+    let accountMarketTab = 'Futuros';
+    let detailAccountId = null;
     const latestSessionDate = state.trades.map(t => t.date).filter(Boolean).sort().at(-1);
     let calendarCursor = latestSessionDate ? new Date(latestSessionDate + 'T12:00:00') : new Date();
+    let accountCalendarCursor = new Date(calendarCursor);
 
     const propSizes = {
       'Topstep': [50000, 100000, 150000],
@@ -688,7 +761,20 @@
     };
     const cfdBrokers = new Set(['Wall Street Funded', 'Orion Funded', 'FTMO', 'Otra prop CFD']);
     const accountMarketFor = account => account.market || (cfdBrokers.has(account.broker) ? 'CFDs' : 'Futuros');
-    const isFundedAccount = account => account.funded === true || (account.funded == null && String(account.type || '').startsWith('Fondeada'));
+    const isFundedAccount = account => account.funded === true || account.type === 'FUNDED' || (account.funded == null && String(account.type || '').startsWith('Fondeada'));
+    const isBurnedAccount = account => account.burned === true;
+    const accountStage = account => {
+      if (isBurnedAccount(account)) return 'burned';
+      if (accountMarketFor(account) === 'CFDs') {
+        if (account.type === 'FUNDED' || isFundedAccount(account)) return 'live';
+        if (account.type === 'FASE 2') return 'funded';
+        return 'challenge';
+      }
+      if ((account.type || 'Personal') === 'Personal' || account.type === 'Fondeada live') return 'live';
+      if (account.type === 'Fondeada simulada' || isFundedAccount(account)) return 'funded';
+      return 'challenge';
+    };
+    const activeAccounts = () => state.accounts.filter(account => !isBurnedAccount(account));
 
     const money = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
     const calendarMoney = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -704,6 +790,13 @@
       return Number(trade.pnl || 0) < 0 && outcomes.includes('SL') ? 'SL'
         : Number(trade.pnl || 0) > 0 && outcomes.includes('TP') ? 'TP'
         : outcomes.includes('BE') ? 'BE' : outcomes.at(-1);
+    };
+    const documentedResultCounts = trade => {
+      const tp = Math.max(0, Math.trunc(Number(trade.tp || 0)));
+      const sl = Math.max(0, Math.trunc(Number(trade.sl || 0)));
+      if (tp || sl) return { tp, sl };
+      const outcome = primarySessionOutcome(trade);
+      return { tp: outcome === 'TP' ? 1 : 0, sl: outcome === 'SL' ? 1 : 0 };
     };
     const sessionImages = (trade, market) => {
       const images = trade[`${market}Images`];
@@ -733,8 +826,11 @@
     function accountTradePnl(account) {
       return state.trades.reduce((sum, trade) => sum + Number(tradeAllocations(trade)[account.name] || 0), 0);
     }
+    function accountWithdrawalDeduction(account) {
+      return isFundedAccount(account) ? Number(account.withdrawals || 0) : 0;
+    }
     function accountCurrentBalance(account) {
-      return Number(account.baseBalance ?? account.balance ?? account.initial ?? 0) + accountTradePnl(account);
+      return Number(account.baseBalance ?? account.balance ?? account.initial ?? 0) + accountTradePnl(account) - accountWithdrawalDeduction(account);
     }
     function syncAccountBalances() {
       state.accounts.forEach(account => { account.balance = accountCurrentBalance(account); });
@@ -759,28 +855,35 @@
       setTimeout(() => toast.classList.remove('show'), 1800);
     }
 
-    function accountCost(a) { return Number(a.evalCost || 0) + Number(a.activationCost || 0) + Number(a.resets || 0) * Number(a.resetCost || 0); }
+    function accountCost(a) { return Number(a.evalCost || 0) + (accountMarketFor(a) === 'CFDs' ? 0 : Number(a.activationCost || 0) + Number(a.resets || 0) * Number(a.resetCost || 0)); }
+    function evaluationAttempts(a) { return accountMarketFor(a) === 'CFDs' ? 1 : 1 + Math.max(0, Math.trunc(Number(a.resets || 0))); }
+    function evaluationLabel(a) {
+      const resets = Math.max(0, Math.trunc(Number(a.resets || 0)));
+      const attempts = evaluationAttempts(a);
+      return `${attempts} ${attempts === 1 ? 'evaluación' : 'evaluaciones'} · ${resets} ${resets === 1 ? 'reinicio' : 'reinicios'}`;
+    }
     function cycleResult(a) { return Number(a.withdrawals || 0) - accountCost(a); }
     function signedMoney(value) { return `${value > 0 ? '+' : ''}${calendarMoney.format(value)}`; }
 
     function renderSummary() {
-      const total = state.accounts.reduce((s,a) => s + accountCurrentBalance(a), 0);
-      const pnl = state.trades.reduce((s,t) => s + Number(t.pnl), 0);
+      const activeAccountList = activeAccounts();
+      const activeAccountCount = activeAccountList.length;
+      const activeFundedCount = activeAccountList.filter(isFundedAccount).length;
       const wins = state.trades.filter(t => Number(t.pnl) > 0).length;
       const totalCosts = state.accounts.reduce((s,a) => s + accountCost(a), 0);
       const totalWithdrawals = state.accounts.reduce((s,a) => s + Number(a.withdrawals || 0), 0);
       const global = totalWithdrawals - totalCosts;
       const propCycles = state.accounts.filter(account => (account.type || 'Personal') !== 'Personal');
       const fundedCycles = propCycles.filter(isFundedAccount);
-      const fundingRatio = propCycles.length ? fundedCycles.length / propCycles.length * 100 : 0;
-      const evaluationSpend = propCycles.reduce((sum, account) => sum + Number(account.evalCost || 0) + Number(account.resets || 0) * Number(account.resetCost || 0) + Number(account.activationCost || 0), 0);
-      document.getElementById('totalBalance').textContent = money.format(total);
-      document.getElementById('netPnl').textContent = `${pnl >= 0 ? '+' : ''}${money.format(pnl)}`;
-      document.getElementById('netPnl').className = `kpi-value ${pnl < 0 ? 'loss' : ''}`;
+      const evaluationCount = propCycles.reduce((sum, account) => sum + evaluationAttempts(account), 0);
+      const fundingRatio = evaluationCount ? fundedCycles.length / evaluationCount * 100 : 0;
+      const evaluationSpend = propCycles.reduce((sum, account) => sum + accountCost(account), 0);
+      document.getElementById('activeAccountCount').textContent = activeAccountCount;
+      document.getElementById('activeFundedCount').textContent = activeFundedCount;
       document.getElementById('globalRoi').textContent = signedMoney(global);
       document.getElementById('globalRoi').className = `kpi-value ${global > 0 ? 'profit' : global < 0 ? 'loss' : ''}`;
       document.getElementById('winRate').textContent = `${state.trades.length ? Math.round(wins/state.trades.length*100) : 0}%`;
-      document.getElementById('evaluationCount').textContent = propCycles.length;
+      document.getElementById('evaluationCount').textContent = evaluationCount;
       document.getElementById('fundingRatio').textContent = `${dec.format(fundingRatio)}%`;
       document.getElementById('fundingRatio').className = `kpi-value ${fundingRatio > 0 ? 'profit' : ''}`;
       document.getElementById('evaluationSpend').textContent = calendarMoney.format(evaluationSpend);
@@ -790,15 +893,70 @@
     }
 
     function renderAccounts() {
-      document.getElementById('accountsGrid').innerHTML = state.accounts.map(a => {
+      const marketCounts = state.accounts.reduce((counts, account) => {
+        counts[accountMarketFor(account)] = (counts[accountMarketFor(account)] || 0) + 1;
+        return counts;
+      }, { Futuros: 0, CFDs: 0 });
+      document.getElementById('futuresMarketCount').textContent = marketCounts.Futuros;
+      document.getElementById('cfdMarketCount').textContent = marketCounts.CFDs;
+      const isCfdMarket = accountMarketTab === 'CFDs';
+      document.getElementById('challengeLabel').textContent = isCfdMarket ? 'FASE 1' : 'Challenge';
+      document.getElementById('fundedLabel').textContent = isCfdMarket ? 'FASE 2' : 'Funded';
+      document.getElementById('liveLabel').textContent = isCfdMarket ? 'FUNDED' : 'Live';
+      document.querySelectorAll('[data-account-market-tab]').forEach(button => {
+        const selected = button.dataset.accountMarketTab === accountMarketTab;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-selected', String(selected));
+      });
+      const marketAccounts = state.accounts.filter(account => accountMarketFor(account) === accountMarketTab);
+      const stageCounts = marketAccounts.reduce((counts, account) => {
+        counts[accountStage(account)] += 1;
+        return counts;
+      }, { challenge: 0, funded: 0, live: 0, burned: 0 });
+      document.getElementById('challengeCount').textContent = stageCounts.challenge;
+      document.getElementById('fundedCount').textContent = stageCounts.funded;
+      document.getElementById('liveCount').textContent = stageCounts.live;
+      document.getElementById('burnedCount').textContent = stageCounts.burned;
+      document.querySelectorAll('[data-account-tab]').forEach(button => {
+        const selected = button.dataset.accountTab === accountTab;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-selected', String(selected));
+      });
+      const visibleAccounts = marketAccounts.filter(account => accountStage(account) === accountTab);
+      const emptyMessages = isCfdMarket ? {
+        challenge: ['Sin cuentas en FASE 1', 'Añade una evaluación de CFDs para empezar a seguir su progreso.'],
+        funded: ['Sin cuentas en FASE 2', 'Las cuentas que superen la FASE 1 aparecerán aquí.'],
+        live: ['Sin cuentas FUNDED', 'Las cuentas que superen la FASE 2 aparecerán aquí.'],
+        burned: ['Sin cuentas quemadas de CFDs', 'Las cuentas que marques como quemadas se conservarán aquí.']
+      } : {
+        challenge: ['Sin challenges de futuros', 'Añade una evaluación de futuros para empezar a seguir su progreso.'],
+        funded: ['Sin cuentas funded de futuros', 'Cuando superes un challenge, pásalo a Funded desde su tarjeta.'],
+        live: ['Sin cuentas live de futuros', 'Las cuentas live y personales aparecerán aquí.'],
+        burned: ['Sin cuentas quemadas de futuros', 'Las cuentas que marques como quemadas se conservarán aquí.']
+      };
+      document.getElementById('accountsGrid').innerHTML = visibleAccounts.map(a => {
         const value = cycleResult(a), cost = accountCost(a), withdrawals = Number(a.withdrawals || 0);
-        return `<article class="card account-card"><div class="account-card-head"><div><h3>${esc(a.name)}</h3><div class="broker">${esc(a.broker)}</div></div><div class="account-actions"><button class="account-edit" type="button" data-edit-account="${a.id}" aria-label="Editar cuenta ${esc(a.name)}" title="Editar cuenta">✎</button><button class="account-delete" type="button" data-delete-account="${a.id}" aria-label="Quitar cuenta ${esc(a.name)}" title="Quitar cuenta">×</button></div></div><div class="account-badges"><span class="account-badge type">${esc(a.type || 'Personal')}</span>${isFundedAccount(a) ? '<span class="account-badge funded">✓ Fondeada</span>' : ''}<span class="account-badge">${esc(accountMarketFor(a))}</span><span class="account-badge">${money.format(a.initial).replace(',00','')} nominal</span><span class="account-badge">${Number(a.resets||0)} reinicios</span></div><div class="account-balance">${money.format(accountCurrentBalance(a))}</div><div class="account-stats"><div><strong class="${value>0?'profit':value<0?'loss':''}">${signedMoney(value)}</strong>ROI neto</div><div>Pagado<br><span>${calendarMoney.format(cost)}</span></div><div>Retirado<br><span class="${withdrawals>0?'profit':''}">${calendarMoney.format(withdrawals)}</span></div></div></article>`;
-      }).join('') || '<div class="empty"><strong>No hay cuentas</strong>Crea una cuenta para empezar a calcular el ROI.</div>';
-      document.getElementById('tradeAccountPicker').innerHTML = state.accounts.map(a => `<label class="account-choice"><input type="checkbox" value="${esc(a.name)}" /> <span>${esc(a.name)}</span></label>`).join('') || '<span class="section-sub">Añade una cuenta antes de registrar la sesión.</span>';
-      document.getElementById('tradeAccountsAll').disabled = state.accounts.length === 0;
+        const stage = accountStage(a);
+        const isCfd = accountMarketFor(a) === 'CFDs';
+        const lifecycleActions = stage === 'challenge'
+          ? isCfd
+            ? `<button class="account-stage-action promote" type="button" data-account-stage="${a.id}" data-next-stage="phase2">Pasar a FASE 2</button><button class="account-stage-action burn" type="button" data-account-stage="${a.id}" data-next-stage="burned">Marcar quemada</button>`
+            : `<button class="account-stage-action promote" type="button" data-account-stage="${a.id}" data-next-stage="funded">Pasar a ${isCfd ? 'FUNDED' : 'Funded'}</button><button class="account-stage-action burn" type="button" data-account-stage="${a.id}" data-next-stage="burned">Marcar quemada</button>`
+          : stage === 'funded'
+            ? `${isCfd ? `<button class="account-stage-action promote" type="button" data-account-stage="${a.id}" data-next-stage="cfdFunded">Pasar a FUNDED</button>` : `<button class="account-stage-action promote" type="button" data-account-stage="${a.id}" data-next-stage="live">Pasar a Live</button>`}<button class="account-stage-action burn" type="button" data-account-stage="${a.id}" data-next-stage="burned">Marcar quemada</button>`
+            : stage === 'live'
+              ? `<button class="account-stage-action burn" type="button" data-account-stage="${a.id}" data-next-stage="burned">Marcar quemada</button>`
+              : `<button class="account-stage-action" type="button" data-account-stage="${a.id}" data-next-stage="restore">Restaurar cuenta</button>`;
+        const detailAction = `<button class="account-stage-action promote" type="button" data-account-detail="${a.id}">Ver estadísticas</button>`;
+        const evaluationBadge = (a.type || 'Personal') !== 'Personal' ? `<span class="account-badge">${isCfd ? '1 evaluación' : evaluationLabel(a)}</span>` : '';
+        return `<article class="card account-card ${stage === 'burned' ? 'burned' : ''}"><div class="account-card-head"><div><h3>${esc(a.name)}</h3><div class="broker">${esc(a.broker)}</div></div><div class="account-actions"><button class="account-edit" type="button" data-edit-account="${a.id}" aria-label="Editar cuenta ${esc(a.name)}" title="Editar cuenta">✎</button><button class="account-delete" type="button" data-delete-account="${a.id}" aria-label="Eliminar definitivamente ${esc(a.name)}" title="Eliminar definitivamente">×</button></div></div><div class="account-badges"><span class="account-badge type">${esc(a.type || 'Personal')}</span>${isFundedAccount(a) ? '<span class="account-badge funded">✓ Fondeada</span>' : ''}${stage === 'burned' ? '<span class="account-badge burned-status">✕ Quemada</span>' : ''}<span class="account-badge">${esc(accountMarketFor(a))}</span><span class="account-badge">${money.format(a.initial).replace(',00','')} nominal</span>${evaluationBadge}</div><div class="account-balance">${money.format(accountCurrentBalance(a))}</div><div class="account-stats"><div><strong class="${value>0?'profit':value<0?'loss':''}">${signedMoney(value)}</strong>ROI neto</div><div>Pagado<br><span>${calendarMoney.format(cost)}</span></div><div>Retirado<br><span class="${withdrawals>0?'profit':''}">${calendarMoney.format(withdrawals)}</span></div></div><div class="account-stage-actions">${detailAction}${lifecycleActions}</div></article>`;
+      }).join('') || `<div class="empty"><strong>${emptyMessages[accountTab][0]}</strong>${emptyMessages[accountTab][1]}</div>`;
+      const selectableAccounts = activeAccounts();
+      document.getElementById('tradeAccountPicker').innerHTML = selectableAccounts.map(a => `<label class="account-choice"><input type="checkbox" value="${esc(a.name)}" /> <span>${esc(a.name)}</span></label>`).join('') || '<span class="section-sub">Añade una cuenta activa antes de registrar la sesión.</span>';
+      document.getElementById('tradeAccountsAll').disabled = selectableAccounts.length === 0;
       document.getElementById('tradeAccountsAll').checked = false;
       document.getElementById('tradeAccountsAll').indeterminate = false;
-      document.getElementById('copyStatus').textContent = state.accounts.length ? 'Selecciona una o varias cuentas' : 'No hay cuentas disponibles';
+      document.getElementById('copyStatus').textContent = selectableAccounts.length ? 'Selecciona una o varias cuentas' : 'No hay cuentas activas disponibles';
       const trackSelect = document.getElementById('trackAccount');
       const trackAccounts = [...new Set([...state.accounts.map(a => a.name), ...state.trades.flatMap(sessionAccounts)])];
       const available = trackAccounts.includes(trackAccount);
@@ -812,14 +970,18 @@
       const trades = state.trades.filter(t => tradeFilter === 'all' || (tradeFilter === 'win' ? Number(t.pnl) > 0 : Number(t.pnl) <= 0));
       const totalPnl = state.trades.reduce((sum,t) => sum + Number(t.pnl || 0), 0);
       const totalPct = state.trades.reduce((sum,t) => sum + Number(t.pct || 0), 0);
-      const totalTp = state.trades.reduce((sum,t) => sum + Number(t.tp || 0), 0);
-      const totalSl = state.trades.reduce((sum,t) => sum + Number(t.sl || 0), 0);
+      const resultTotals = state.trades.reduce((totals, trade) => {
+        const counts = documentedResultCounts(trade);
+        totals.tp += counts.tp;
+        totals.sl += counts.sl;
+        return totals;
+      }, { tp: 0, sl: 0 });
       document.getElementById('journalPnl').textContent = `${totalPnl >= 0 ? '+' : ''}${money.format(totalPnl)}`;
       document.getElementById('journalPnl').className = totalPnl >= 0 ? 'profit' : 'loss';
       document.getElementById('journalPct').textContent = `${totalPct >= 0 ? '+' : ''}${dec.format(totalPct)}%`;
       document.getElementById('journalPct').className = totalPct >= 0 ? 'profit' : 'loss';
-      document.getElementById('journalTp').textContent = totalTp;
-      document.getElementById('journalSl').textContent = totalSl;
+      document.getElementById('journalTp').textContent = resultTotals.tp;
+      document.getElementById('journalSl').textContent = resultTotals.sl;
       document.getElementById('sessionList').innerHTML = trades.map(t => {
         const londonMedia = sessionImages(t, 'london');
         const newYorkMedia = sessionImages(t, 'newYork');
@@ -881,6 +1043,109 @@
         cells.push(`<div class="${classes.join(' ')}"><span class="calendar-day-number">${date.getDate()}</span>${detail}</div>`);
       }
       document.getElementById('resultCalendar').innerHTML = cells.join('');
+    }
+
+    function accountDetailEntries(account) {
+      return state.trades
+        .filter(trade => sessionAccounts(trade).includes(account.name))
+        .sort((a,b) => String(a.date || '').localeCompare(String(b.date || '')) || Number(a.id) - Number(b.id))
+        .map(trade => {
+          const pnl = Number(tradeAllocations(trade)[account.name] || 0);
+          const pct = Number(account.initial || 0) ? pnl / Number(account.initial) * 100 : 0;
+          const counts = documentedResultCounts(trade);
+          return { trade, pnl, pct, tp:counts.tp, sl:counts.sl, trades:Math.max(counts.tp + counts.sl, 1) };
+        });
+    }
+
+    function renderAccountDetail() {
+      const account = state.accounts.find(item => item.id === detailAccountId);
+      if (!account) return;
+      const entries = accountDetailEntries(account);
+      const pnl = entries.reduce((sum, entry) => sum + entry.pnl, 0);
+      const totalReturn = (entries.reduce((factor, entry) => factor * (1 + entry.pct / 100), 1) - 1) * 100;
+      const wins = entries.filter(entry => entry.pnl > 0).length;
+      const tradeCount = entries.reduce((sum, entry) => sum + entry.trades, 0);
+      const tp = entries.reduce((sum, entry) => sum + entry.tp, 0);
+      const sl = entries.reduce((sum, entry) => sum + entry.sl, 0);
+      const stageLabels = { challenge:'Challenge', funded:'Funded', live:'Live', burned:'Cuenta quemada' };
+      const detailStageLabel = accountMarketFor(account) === 'CFDs' && !isBurnedAccount(account) ? account.type : stageLabels[accountStage(account)];
+      document.getElementById('accountDetailTitle').textContent = account.name;
+      document.getElementById('accountDetailMeta').textContent = `${account.broker} · ${detailStageLabel} · ${money.format(Number(account.initial || 0))} nominal`;
+      const setMetric = (id, value, tone = '') => { const element = document.getElementById(id); element.textContent = value; element.className = tone; };
+      setMetric('accountDetailPnl', `${pnl >= 0 ? '+' : ''}${calendarMoney.format(pnl)}`, pnl > 0 ? 'profit' : pnl < 0 ? 'loss' : '');
+      setMetric('accountDetailReturn', `${totalReturn >= 0 ? '+' : ''}${dec.format(totalReturn)}%`, totalReturn > 0 ? 'profit' : totalReturn < 0 ? 'loss' : '');
+      setMetric('accountDetailWinRate', `${entries.length ? dec.format(wins / entries.length * 100) : 0}%`);
+      setMetric('accountDetailTrades', tradeCount);
+      setMetric('accountDetailTp', tp, tp ? 'profit' : '');
+      setMetric('accountDetailSl', sl, sl ? 'loss' : '');
+
+      const year = accountCalendarCursor.getFullYear(), month = accountCalendarCursor.getMonth();
+      document.getElementById('accountCalendarMonth').textContent = new Intl.DateTimeFormat('en-US',{month:'short',year:'numeric'}).format(accountCalendarCursor);
+      const first = new Date(year, month, 1, 12);
+      const mondayOffset = (first.getDay() + 6) % 7;
+      const gridStart = new Date(year, month, 1 - mondayOffset, 12);
+      const todayKey = localDateKey(new Date());
+      const byDay = new Map();
+      entries.forEach(entry => {
+        if (!entry.trade.date) return;
+        const current = byDay.get(entry.trade.date) || { pnl:0, trades:0 };
+        current.pnl += entry.pnl;
+        current.trades += entry.trades;
+        byDay.set(entry.trade.date, current);
+      });
+      const cells = [];
+      for (let index = 0; index < 42; index++) {
+        const date = new Date(gridStart); date.setDate(gridStart.getDate() + index);
+        const key = localDateKey(date);
+        const data = byDay.get(key);
+        const outside = date.getMonth() !== month;
+        const classes = ['calendar-day'];
+        if (outside) classes.push('outside');
+        if (data && !outside && data.pnl > 0) classes.push('positive');
+        if (data && !outside && data.pnl < 0) classes.push('negative');
+        if (key === todayKey) classes.push('today-cell');
+        let detail = data ? `<div class="calendar-result"><strong class="${data.pnl >= 0 ? 'profit' : 'loss'}">${data.pnl >= 0 ? '' : '-'}${calendarMoney.format(Math.abs(data.pnl))}</strong><span>${data.trades} trades</span></div>` : '';
+        if (index % 7 === 5) {
+          let weekPnl = 0, weekTrades = 0;
+          for (let day = index - 5; day <= index + 1; day++) {
+            const weekDate = new Date(gridStart); weekDate.setDate(gridStart.getDate() + day);
+            const weekData = byDay.get(localDateKey(weekDate));
+            if (weekData) { weekPnl += weekData.pnl; weekTrades += weekData.trades; }
+          }
+          detail += `<div class="calendar-week-summary"><b>Week ${Math.floor(index/7)+1}</b><strong class="${weekPnl > 0 ? 'profit' : weekPnl < 0 ? 'loss' : ''}">${weekPnl < 0 ? '-' : ''}${calendarMoney.format(Math.abs(weekPnl))}</strong><span>${weekTrades} trades</span></div>`;
+        }
+        cells.push(`<div class="${classes.join(' ')}"><span class="calendar-day-number">${date.getDate()}</span>${detail}</div>`);
+      }
+      document.getElementById('accountResultCalendar').innerHTML = cells.join('');
+
+      const assetFactors = new Map();
+      entries.forEach(entry => {
+        const asset = normalizedSymbol(entry.trade.symbol) || 'Sin activo';
+        assetFactors.set(asset, (assetFactors.get(asset) || 1) * (1 + entry.pct / 100));
+      });
+      const preferredAssets = ['EURUSD','GBPUSD','NQ','SP500','AUDUSD','XAAUSD','NZDUSD'];
+      const assetRows = [...assetFactors.entries()].map(([asset,factor]) => ({asset,value:(factor-1)*100})).sort((a,b) => {
+        const ai = preferredAssets.indexOf(a.asset), bi = preferredAssets.indexOf(b.asset);
+        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi) || a.asset.localeCompare(b.asset);
+      });
+      if (!assetRows.length) {
+        document.getElementById('accountAssetChart').innerHTML = '<div class="empty"><strong>Sin pares operados</strong>Los resultados aparecerán al documentar sesiones en esta cuenta.</div>';
+      } else {
+        const maxAsset = Math.max(...assetRows.map(row => Math.abs(row.value)), .01);
+        document.getElementById('accountAssetChart').innerHTML = assetRows.map(row => {
+          const width = Math.min(Math.abs(row.value) / maxAsset * 50, 50);
+          const tone = row.value >= 0 ? 'positive' : 'negative';
+          return `<div class="asset-row"><span class="asset-name">${esc(row.asset)}</span><div class="asset-track"><i class="asset-bar ${tone}" style="width:${width}%"></i></div><strong class="asset-value ${row.value >= 0 ? 'profit' : 'loss'}">${row.value >= 0 ? '+' : ''}${dec.format(row.value)}%</strong></div>`;
+        }).join('');
+      }
+    }
+
+    function openAccountDetail(account) {
+      detailAccountId = account.id;
+      const latestDate = accountDetailEntries(account).map(entry => entry.trade.date).filter(Boolean).sort().at(-1);
+      accountCalendarCursor = latestDate ? new Date(latestDate + 'T12:00:00') : new Date();
+      renderAccountDetail();
+      document.getElementById('accountDetailDialog').showModal();
     }
 
     function renderTrackRecord() {
@@ -1011,7 +1276,7 @@
 
     function renderAll() { renderSummary(); renderAccounts(); renderTrades(); renderLogs(); renderTrackRecord(); renderCalendar(); }
 
-    const titles = { resumen: ['Vista general','Tu operativa, sin ruido.'], cuentas: ['Capital y rendimiento','Cuentas'], journal: ['Proceso, ejecución y resultado','Diario de bitácora'], trackrecord: ['Historial verificable','Track record'] };
+    const titles = { resumen: ['Vista general','Dashboard'], cuentas: ['Capital y rendimiento','Cuentas'], journal: ['Proceso, ejecución y resultado','Diario de bitácora'], trackrecord: ['Historial verificable','Track record'] };
     function switchView(id) {
       document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === id));
       document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === id));
@@ -1036,6 +1301,47 @@
     const accountFunded = document.getElementById('accountFunded');
     const accountSize = document.getElementById('accountSize');
     const accountBalance = document.getElementById('accountBalance');
+    const accountTypeOptions = {
+      Futuros: [
+        ['Evaluación','Prop · Evaluación'],
+        ['Fondeada simulada','Prop · Fondeada simulada'],
+        ['Fondeada live','Prop · Fondeada live'],
+        ['Personal','Cuenta personal']
+      ],
+      CFDs: [
+        ['FASE 1','FASE 1'],
+        ['FASE 2','FASE 2'],
+        ['FUNDED','FUNDED']
+      ]
+    };
+    function updateAccountTypes(preferredType = '') {
+      const options = accountTypeOptions[accountMarket.value] || accountTypeOptions.Futuros;
+      let selected = preferredType;
+      if (accountMarket.value === 'CFDs' && !options.some(([value]) => value === selected)) selected = selected === 'Fondeada simulada' || selected === 'Fondeada live' ? 'FUNDED' : 'FASE 1';
+      if (!options.some(([value]) => value === selected)) selected = options[0][0];
+      accountType.innerHTML = options.map(([value,label]) => `<option value="${value}">${label}</option>`).join('');
+      accountType.value = selected;
+    }
+    function updateAccountFormVisibility() {
+      const isCfd = accountMarket.value === 'CFDs';
+      const isCfdFunded = isCfd && accountType.value === 'FUNDED';
+      document.getElementById('accountFundedField').hidden = isCfd;
+      document.getElementById('accountEvalCostField').classList.toggle('full', isCfd);
+      ['accountActivationField','accountResetsField','accountResetCostField'].forEach(id => { document.getElementById(id).hidden = isCfd; });
+      document.getElementById('accountWithdrawalsField').hidden = isCfd && !isCfdFunded;
+      const cfdExcludedInputs = [document.getElementById('accountActivationCost'), document.getElementById('accountResets'), document.getElementById('accountResetCost')];
+      cfdExcludedInputs.forEach(input => { input.disabled = isCfd; if (isCfd) input.value = 0; });
+      const withdrawals = document.getElementById('accountWithdrawals');
+      withdrawals.disabled = isCfd && !isCfdFunded;
+      if (withdrawals.disabled) withdrawals.value = 0;
+      if (isCfd) {
+        accountFunded.checked = isCfdFunded;
+        accountFunded.disabled = true;
+      } else {
+        accountFunded.checked = accountType.value.startsWith('Fondeada');
+        accountFunded.disabled = accountType.value === 'Personal';
+      }
+    }
     function updateAccountBrokers(preferredBroker = '') {
       const brokers = brokersByMarket[accountMarket.value] || brokersByMarket.Futuros;
       accountBroker.innerHTML = brokers.map(broker => `<option value="${esc(broker)}">${esc(broker)}</option>`).join('');
@@ -1050,34 +1356,31 @@
       if (!preserveBalance) accountBalance.value = selected;
     }
     accountBroker.addEventListener('change', updateAccountSizes);
-    accountMarket.addEventListener('change', () => {
-      updateAccountBrokers();
-      if (accountType.value === 'Personal') accountBroker.value = 'Broker personal';
-      updateAccountSizes();
-    });
     accountSize.addEventListener('change', () => { accountBalance.value = accountSize.value; });
     accountType.addEventListener('change', () => {
-      if (accountType.value === 'Personal') accountBroker.value = 'Broker personal';
-      else if (accountBroker.value === 'Broker personal') accountBroker.value = brokersByMarket[accountMarket.value][0];
-      accountFunded.checked = accountType.value.startsWith('Fondeada');
-      accountFunded.disabled = accountType.value === 'Personal';
+      if (accountMarket.value === 'Futuros') {
+        if (accountType.value === 'Personal') accountBroker.value = 'Broker personal';
+        else if (accountBroker.value === 'Broker personal') accountBroker.value = brokersByMarket[accountMarket.value][0];
+      }
+      updateAccountFormVisibility();
       updateAccountSizes();
     });
     let accountEditingId = null;
-    function openAccountDialog(account = null) {
+    function openAccountDialog(account = null, preferredMarket = 'Futuros') {
       const form = document.getElementById('accountForm');
       form.reset();
       accountEditingId = account ? account.id : null;
-      document.getElementById('accountDialogTitle').textContent = account ? 'Editar cuenta' : 'Nueva cuenta';
+      document.getElementById('accountDialogTitle').textContent = account ? 'Editar cuenta' : `Nueva cuenta de ${preferredMarket}`;
       document.getElementById('accountSubmit').textContent = account ? 'Guardar cambios' : 'Guardar cuenta';
       if (!account) {
-        accountMarket.value = 'Futuros'; accountType.value = 'Evaluación'; accountFunded.checked = false; accountFunded.disabled = false; updateAccountBrokers('Topstep'); updateAccountSizes();
+        accountMarket.value = preferredMarket;
+        updateAccountTypes(preferredMarket === 'CFDs' ? 'FASE 1' : 'Evaluación');
+        updateAccountBrokers(preferredMarket === 'CFDs' ? 'Wall Street Funded' : 'Topstep');
+        updateAccountSizes();
       } else {
         document.getElementById('accountName').value = account.name || '';
         accountMarket.value = accountMarketFor(account);
-        accountType.value = account.type || 'Evaluación';
-        accountFunded.checked = isFundedAccount(account);
-        accountFunded.disabled = accountType.value === 'Personal';
+        updateAccountTypes(account.type || 'Evaluación');
         updateAccountBrokers(account.broker || (accountMarket.value === 'CFDs' ? 'Otra prop CFD' : 'Otra prop'));
         updateAccountSizes(account.initial, true);
         if (![...accountSize.options].some(option => Number(option.value) === Number(account.initial))) accountSize.add(new Option(`$${Number(account.initial)/1000}K`, account.initial));
@@ -1089,11 +1392,16 @@
         document.getElementById('accountResetCost').value = Number(account.resetCost || 0);
         document.getElementById('accountWithdrawals').value = Number(account.withdrawals || 0);
       }
+      updateAccountFormVisibility();
+      if (account && accountMarket.value === 'Futuros') accountFunded.checked = isFundedAccount(account);
       document.getElementById('accountDialog').showModal();
     }
-    document.getElementById('accountQuick').onclick = () => openAccountDialog();
+    document.getElementById('accountCfdQuick').onclick = () => openAccountDialog(null, 'CFDs');
+    document.getElementById('accountFuturesQuick').onclick = () => openAccountDialog(null, 'Futuros');
     updateAccountBrokers('Topstep');
+    updateAccountTypes('Evaluación');
     updateAccountSizes();
+    updateAccountFormVisibility();
 
     function selectedTradeAccounts() {
       return [...document.querySelectorAll('#tradeAccountPicker input[type="checkbox"]:checked')].map(input => input.value);
@@ -1291,11 +1599,17 @@
     });
     document.getElementById('accountForm').addEventListener('submit', e => {
       e.preventDefault(); const d = Object.fromEntries(new FormData(e.currentTarget));
-      const payload = { ...d, funded:accountType.value === 'Personal' ? false : accountFunded.checked, initial:Number(d.initial), balance:Number(d.balance), evalCost:Number(d.evalCost||0), activationCost:Number(d.activationCost||0), resets:Number(d.resets||0), resetCost:Number(d.resetCost||0), withdrawals:Number(d.withdrawals||0) };
+      const isCfd = accountMarket.value === 'CFDs';
+      const payload = { ...d, market:accountMarket.value, type:accountType.value, funded:isCfd ? accountType.value === 'FUNDED' : accountType.value === 'Personal' ? false : accountFunded.checked, initial:Number(d.initial), balance:Number(d.balance), evalCost:Number(d.evalCost||0), activationCost:isCfd ? 0 : Number(d.activationCost||0), resets:isCfd ? 0 : Number(d.resets||0), resetCost:isCfd ? 0 : Number(d.resetCost||0), withdrawals:isCfd && accountType.value !== 'FUNDED' ? 0 : Number(d.withdrawals||0) };
+      if (payload.type === 'Evaluación' && payload.funded) payload.type = 'Fondeada simulada';
       if (accountEditingId !== null) {
         const account = state.accounts.find(a => a.id === accountEditingId);
         if (account) {
           const oldName = account.name;
+          const wasFunded = isFundedAccount(account);
+          const previousStage = accountStage(account);
+          const previousCurrentBalance = accountCurrentBalance(account);
+          const previousBaseBalance = Number(account.baseBalance ?? account.balance ?? account.initial ?? 0);
           Object.assign(account, payload);
           if (oldName !== account.name) state.trades.forEach(trade => {
             if (trade.account === oldName) trade.account = account.name;
@@ -1305,18 +1619,92 @@
               delete trade.accountPnl[oldName];
             }
           });
-          account.baseBalance = Number(payload.balance) - accountTradePnl(account);
-          account.balance = account.baseBalance;
+          const promotedToFunded = !wasFunded && isFundedAccount(account);
+          const enteredCfdPhase2 = accountMarketFor(account) === 'CFDs' && previousStage === 'challenge' && accountStage(account) === 'funded';
+          const resetAtNewPhase = enteredCfdPhase2 || promotedToFunded;
+          const balanceWasEdited = Math.abs(Number(payload.balance) - previousCurrentBalance) > .005;
+          if (resetAtNewPhase) {
+            account.baseBalance = Number(account.initial || 0) - accountTradePnl(account) + accountWithdrawalDeduction(account);
+          } else if (balanceWasEdited) {
+            account.baseBalance = Number(payload.balance) - accountTradePnl(account) + accountWithdrawalDeduction(account);
+          } else {
+            account.baseBalance = previousBaseBalance;
+          }
+          account.balance = accountCurrentBalance(account);
+          if (promotedToFunded) account.fundedAt = new Date().toISOString();
+          accountTab = accountStage(account);
+          accountMarketTab = accountMarketFor(account);
         }
         save('Cuenta actualizada');
       } else {
-        state.accounts.push({ id: Date.now(), ...payload, baseBalance: Number(payload.balance) });
+        const account = { id: Date.now(), ...payload, baseBalance: Number(payload.balance), burned: false };
+        state.accounts.push(account);
+        accountTab = accountStage(account);
+        accountMarketTab = accountMarketFor(account);
         save('Cuenta añadida');
       }
       accountEditingId = null; renderAll(); e.currentTarget.reset(); updateAccountSizes(); document.getElementById('accountDialog').close();
     });
     let accountPendingDelete = null;
     document.getElementById('accountsGrid').addEventListener('click', e => {
+      const detailButton = e.target.closest('[data-account-detail]');
+      if (detailButton) {
+        const account = state.accounts.find(a => String(a.id) === detailButton.dataset.accountDetail);
+        if (account) openAccountDetail(account);
+        return;
+      }
+      const stageButton = e.target.closest('[data-account-stage]');
+      if (stageButton) {
+        const account = state.accounts.find(a => String(a.id) === stageButton.dataset.accountStage);
+        if (!account) return;
+        const nextStage = stageButton.dataset.nextStage;
+        if (nextStage === 'phase2') {
+          account.type = 'FASE 2';
+          account.funded = false;
+          account.withdrawals = 0;
+          account.baseBalance = Number(account.initial || 0) - accountTradePnl(account);
+          account.balance = Number(account.initial || 0);
+          accountTab = 'funded';
+          save(`${account.name} ha pasado a FASE 2`);
+        } else if (nextStage === 'funded') {
+          account.type = accountMarketFor(account) === 'CFDs' ? 'FUNDED' : 'Fondeada simulada';
+          account.funded = true;
+          account.burned = false;
+          account.fundedAt = new Date().toISOString();
+          account.baseBalance = Number(account.initial || 0) - accountTradePnl(account) + accountWithdrawalDeduction(account);
+          account.balance = Number(account.initial || 0);
+          accountTab = accountStage(account);
+          save(`${account.name} ha pasado a ${accountMarketFor(account) === 'CFDs' ? 'FUNDED' : 'Funded'}`);
+        } else if (nextStage === 'cfdFunded') {
+          account.type = 'FUNDED';
+          account.funded = true;
+          account.burned = false;
+          account.fundedAt = new Date().toISOString();
+          account.baseBalance = Number(account.initial || 0) - accountTradePnl(account) + accountWithdrawalDeduction(account);
+          account.balance = Number(account.initial || 0);
+          accountTab = 'live';
+          save(`${account.name} ha pasado a FUNDED`);
+        } else if (nextStage === 'live') {
+          account.type = 'Fondeada live';
+          account.funded = true;
+          account.burned = false;
+          account.liveAt = new Date().toISOString();
+          accountTab = 'live';
+          save(`${account.name} ha pasado a Live`);
+        } else if (nextStage === 'burned') {
+          account.burned = true;
+          account.burnedAt = new Date().toISOString();
+          accountTab = 'burned';
+          save(`${account.name} marcada como quemada`);
+        } else if (nextStage === 'restore') {
+          account.burned = false;
+          delete account.burnedAt;
+          accountTab = accountStage(account);
+          save(`${account.name} restaurada`);
+        }
+        renderAll();
+        return;
+      }
       const editButton = e.target.closest('[data-edit-account]');
       if (editButton) {
         const account = state.accounts.find(a => String(a.id) === editButton.dataset.editAccount);
@@ -1440,12 +1828,20 @@
       pendingBackupState = null;
       const importedLatestDate = state.trades.map(trade => trade.date).filter(Boolean).sort().at(-1);
       calendarCursor = importedLatestDate ? new Date(importedLatestDate + 'T12:00:00') : new Date();
-      tradeFilter = 'all'; trackPeriod = 'all'; trackAccount = 'all';
+      tradeFilter = 'all'; trackPeriod = 'all'; trackAccount = 'all'; accountTab = 'challenge'; accountMarketTab = 'Futuros';
       renderAll();
       document.getElementById('backupImportDialog').close();
       const toast = document.getElementById('toast'); toast.textContent = 'Copia restaurada correctamente'; toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 1800);
     });
+    document.querySelectorAll('[data-account-tab]').forEach(button => button.addEventListener('click', () => {
+      accountTab = button.dataset.accountTab;
+      renderAccounts();
+    }));
+    document.querySelectorAll('[data-account-market-tab]').forEach(button => button.addEventListener('click', () => {
+      accountMarketTab = button.dataset.accountMarketTab;
+      renderAccounts();
+    }));
     document.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => {
       tradeFilter = b.dataset.filter; document.querySelectorAll('[data-filter]').forEach(x => x.classList.toggle('active',x===b)); renderTrades();
     }));
@@ -1461,6 +1857,9 @@
     document.getElementById('calendarPrev').addEventListener('click', () => { calendarCursor.setMonth(calendarCursor.getMonth() - 1); renderCalendar(); });
     document.getElementById('calendarNext').addEventListener('click', () => { calendarCursor.setMonth(calendarCursor.getMonth() + 1); renderCalendar(); });
     document.getElementById('calendarToday').addEventListener('click', () => { calendarCursor = new Date(); renderCalendar(); });
+    document.getElementById('accountCalendarPrev').addEventListener('click', () => { accountCalendarCursor.setMonth(accountCalendarCursor.getMonth() - 1); renderAccountDetail(); });
+    document.getElementById('accountCalendarNext').addEventListener('click', () => { accountCalendarCursor.setMonth(accountCalendarCursor.getMonth() + 1); renderAccountDetail(); });
+    document.getElementById('accountCalendarToday').addEventListener('click', () => { accountCalendarCursor = new Date(); renderAccountDetail(); });
 
     renderAll();
   </script>
